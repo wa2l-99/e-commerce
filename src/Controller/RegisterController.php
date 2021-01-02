@@ -9,13 +9,15 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
-
-
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class RegisterController extends AbstractController
 {
+    //injection des dependances
 
     private $entityManager;
+    
+    //Lors de la creation de la classe RegisterController il faut instentie EntityManagerInterface
 
     public function __construct(EntityManagerInterface $entityManager) {
         $this->entityManager = $entityManager;
@@ -25,7 +27,11 @@ class RegisterController extends AbstractController
     /**
      * @Route("/inscription", name="register")
      */
-    public function index(Request $request): Response
+
+
+    //Lors de la function index il faut construire la request
+
+    public function index(Request $request,UserPasswordEncoderInterface $encoder ): Response
     {
 
         $user = new User();
@@ -36,6 +42,11 @@ class RegisterController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $user = $form->getData();
+
+            $password = $encoder->encodePassword($user,$user->getPassword());
+
+            //reinjecte le password dans l'objet user
+            $user->setPassword($password);
 
          $this->entityManager->persist($user);
          $this->entityManager->flush();
