@@ -17,7 +17,8 @@ class RegisterController extends AbstractController
 
     private $entityManager;
     
-    //Lors de la creation de la classe RegisterController il faut instentie EntityManagerInterface
+    //Lors de la creation de la classe RegisterController il faut instentie EntityManagerInterface 
+    //entityManager: permet de chercher les informations de la BD grace a l'ORM Doctrine
 
     public function __construct(EntityManagerInterface $entityManager) {
         $this->entityManager = $entityManager;
@@ -35,7 +36,7 @@ class RegisterController extends AbstractController
     {
 
         $user = new User();
-        
+
         $form = $this->createForm(RegisterType::class, $user);
 
         $form->handleRequest($request);
