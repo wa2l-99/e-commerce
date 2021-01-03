@@ -35,6 +35,7 @@ class RegisterController extends AbstractController
     {
 
         $user = new User();
+        
         $form = $this->createForm(RegisterType::class, $user);
 
         $form->handleRequest($request);
@@ -48,8 +49,9 @@ class RegisterController extends AbstractController
             //reinjecte le password dans l'objet user
             $user->setPassword($password);
 
-         $this->entityManager->persist($user);
-         $this->entityManager->flush();
+            $this->entityManager->persist($user);
+
+            $this->entityManager->flush();
 
         }
 
