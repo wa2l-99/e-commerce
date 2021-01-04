@@ -3,6 +3,13 @@
 {% block title %}Nos Produits -La boutique tunisienne{% endblock %}
 
 {% block content %}
+<div class="row">
+<div class="col-md-3">
+<h1>Filtre</h1>
+{{form(form)}}
+
+<div>
+<div class="col-md-6"></div>
 <h1>Produits</h1>
 {%for product in products%}
  <div class="col-md-4">
@@ -16,5 +23,7 @@
 </div>
  </div>
 
-PRODUITs
+
+</div>
+
 {% endblock %}
