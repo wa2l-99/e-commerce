@@ -21,6 +21,7 @@ class ProductCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
+        $currency = 'DT';
         return [
             TextField::new('name'),
             SlugField::new('slug')->setTargetFieldName('name'),
@@ -32,7 +33,7 @@ class ProductCrudController extends AbstractCrudController
             TextField::new('subtitle'),
             TextareaField::new('description'),
             //BooleanField::new('isBest'),
-            MoneyField::new('price')->setCurrency('EUR'),
+            MoneyField::new('price')->setCurrency('TND'),
             AssociationField::new('category')
         ];
     }
