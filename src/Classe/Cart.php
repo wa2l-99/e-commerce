@@ -1,5 +1,5 @@
 <?php
-//contient tous la mécanique du panier (Ajout, Suppression, Affichage, )
+//contient tous la mécanique du panier (Ajout, Suppression, Affichage, ) et gére les operations liee au panier .
 
 namespace App\Classe;
 
@@ -37,9 +37,76 @@ class Cart
         return $this->session->get('cart');
     }
 
+    //Supprimer completement le panier 
+
     public function remove()
     {
         return $this->session->remove('cart');
+    }
+
+    // Supprimer juste un produit
+    public function delete($id)
+    {
+        $cart = $this->session->get('cart', []);
+
+        unset($cart[$id]);
+        
+        return $this->session->set('cart', $cart);
+
+    }
+
+    // Supprimer une quantité
+    public function decrease($id)
+    {
+
+        $cart = $this->session->get('cart', []);
+
+        // verifier si la quantité du produit = 1
+
+        if ($cart[$id] > 1){
+
+            //retirer la quantité (faire -1)
+            $cart[$id]--;
+        }else{
+
+            unset($cart[$id]);
+
+            // supprimer le produit 
+        }
+        
+        return $this->session->set('cart', $cart);
+    }
+
+    public function getFull(){
+
+         //Mecanisme pour chercher et recuperer tout nos produits associés a ce que on a dans le panier
+
+         $cartComplete= [];
+
+         if ($this->get()){
+ 
+             foreach ($this->get() as $id => $quantity) {
+
+                $product_object= $this->entityManager->getRepository(Product::class)->findOneById($id);
+                
+                if(!$product_object){
+
+                    $this->delete($id);
+                    continue;
+
+                }
+
+                $cartComplete[]= [
+ 
+                     'product' => $product_object,
+                     'quantity' => $quantity
+ 
+ 
+                 ];
+             }
+         }
+         
+         return $cartComplete;
     }
 }
 
