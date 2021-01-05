@@ -3,24 +3,21 @@
 
 namespace App\Classe;
 
+use App\Entity\Product;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
-
-
-class Cart {
-
+class Cart
+{
     private $session;
+    private $entityManager;
 
-    public function __construct(EntityManagerInterface $entityManager,SessionInterface $session)
-    
+    public function __construct(EntityManagerInterface $entityManager, SessionInterface $session)
     {
         $this->session = $session;
         $this->entityManager = $entityManager;
-    
-
     }
-    
+
     public function add($id)
     {
         $cart = $this->session->get('cart', []);
@@ -32,26 +29,17 @@ class Cart {
         }
 
         $this->session->set('cart', $cart);
-
     }
 
 
-    public function get(){
-
+    public function get()
+    {
         return $this->session->get('cart');
-
-
     }
 
-    public function remove(){
-
+    public function remove()
+    {
         return $this->session->remove('cart');
-
-
     }
-
-
-  
-
-
 }
+
