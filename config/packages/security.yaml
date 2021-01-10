@@ -37,3 +37,6 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
          - { path: ^/compte, roles: ROLE_USER }
+        #L'utilistateur doit étre connecter pour pouvoir accéder aux commandes 
+         - { path: ^/commande, roles: ROLE_USER }
+
