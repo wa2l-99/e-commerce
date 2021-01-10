@@ -22,7 +22,7 @@ class AddressType extends AbstractType
                 ]
             ])
             ->add('firstname',TextType::class,[
-                'label' => 'Notre prenom',
+                'label' => 'Votre prenom',
                 'attr'=>[
                     'placeholder' =>'Entre votre prenom'
                 ]
@@ -35,6 +35,7 @@ class AddressType extends AbstractType
             ])
             ->add('company',TextType::class,[
                 'label' => 'Votre sociéte',
+                'required' => false,
                 'attr'=>[
                     'placeholder' =>'(facultatif) Entre le nom de votre societe'
                 ]
