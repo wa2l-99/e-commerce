@@ -62,6 +62,7 @@ class StripeController extends AbstractController
         ]);
         
         $order->setStripeSessionId($checkout_session->id);
+        $entityManager->flush();
 
         $response = new JsonResponse(['id' => $checkout_session->id]);
         return $response;
