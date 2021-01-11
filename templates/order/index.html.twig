@@ -7,17 +7,17 @@
     <p>Choisissez vos préférences avant de passer votre commande sur La Boutique Tunisienne.</p>
     <hr>
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-6 mt-1">
             {% set formHtml %}
-                {{ form_start(form) }}
+                {{ form_start(form,{action:path('order-recap')}) }}
                     {{ form_label(form.addresses, 'Choisissez votre adresse de livraison') }}
                     <a href="{{ path('account_address_add') }}">Ajouter une nouvelle adresse</a>
                 {{ form_end(form) }}
             {% endset %}
             {{ formHtml|replace({'[br]' : '<br/>'})|raw }}
         </div>
-        <div class="col-md-6">
-            <div class="text-center">
+        <div class="col-md-6 mt-1">
+            <div class="text-center ">
                 <b>Récap de ma commande</b><br/>
                 <p>Retrouvez le récapitulatif de vos produits.</p>
             </div>
