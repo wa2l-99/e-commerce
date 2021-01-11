@@ -53,6 +53,11 @@ class Product
      */
     private $category;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isBset;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -138,6 +143,18 @@ class Product
     public function setCategory(?Category $category): self
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function getIsBset(): ?bool
+    {
+        return $this->isBset;
+    }
+
+    public function setIsBset(bool $isBset): self
+    {
+        $this->isBset = $isBset;
 
         return $this;
     }
