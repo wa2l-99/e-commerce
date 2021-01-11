@@ -21,7 +21,7 @@ class Order
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=user::class, inversedBy="orders")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="orders")
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
@@ -49,6 +49,17 @@ class Order
     public function __construct()
     {
         $this->orderDetails = new ArrayCollection();
+    }
+    
+    public function getTotal()
+    {
+        $total = null;
+
+        foreach ($this->getOrderDetails()->getValues() as $product) {
+            $total = $total + ($product->getPrice() * $product->getQuantity());
+        }
+
+        return $total;
     }
 
     public function getId(): ?int
